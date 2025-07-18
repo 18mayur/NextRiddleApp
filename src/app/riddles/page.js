@@ -1,14 +1,15 @@
-import React from 'react'
-import RiddleCard from '@/components/RiddleCard'
+import React from "react";
+import RiddleCard from "@/components/RiddleCard";
+import RiddleCard2 from "@/components/RiddleCard2";
 const riddles = () => {
   return (
     <>
-    <div className='container'>
-        <h1>This is Riddle page</h1>
-        <RiddleCard/>
-    </div>
+    <div className="container flex justify-center mt-[3rem]">
+        {/* <RiddleCard/> */}
+        <RiddleCard2/>
+      </div>
     </>
-  )
-}
+  );
+};
 
-export default riddles
+export default riddles;
