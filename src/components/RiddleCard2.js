@@ -20,7 +20,8 @@ const RiddleCard2 = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [riddle, setRiddle] = useState([null]);
   const [showAns, setShowAns] = useState(false);
-  
+  const [Answer,setAnswer]=useState("")
+  const [result,setResult]=useState("");
   useEffect(() => {
     if (isStart) {
       const fetchRiddle = async () => {
@@ -44,7 +45,14 @@ const RiddleCard2 = () => {
       fetchRiddle();
     }
   }, [isStart]);
-
+  console.log(Answer)
+  const handleSubmit =(Answer)=>{
+    if (Answer.trim().toLowerCase() === riddle.answer.trim().toLowerCase()) {
+    setResult("You are correct!");
+  } else {
+    setResult("Try again!");
+  }
+  }
   let quotesArray = [
     ["Think you're clever? Let's find out."],
     ["Only the sharpest minds can solve what's ahead. Are you one of them?"],
@@ -73,13 +81,13 @@ const RiddleCard2 = () => {
                 showAns ? "bg-green-600" : "from-blue-500 to-blue-600"
               }`}
             >
-              {showAns ? (
+              {showAns ? 
                 <h1 className="text-[1.35rem] md:text-[2rem] text-center font2">
                   {riddle?.answer}
                 </h1>
-              ) : (
-                <h1 className="text-5xl">Riddles</h1>
-              )}
+              : result ||
+               <h1 className="text-5xl">Riddles</h1>
+              }
             </div>
             {isLoading ? (
               <div className="flex items-center justify-center mb-3  text-black text-lg font-semibold">
@@ -102,12 +110,14 @@ const RiddleCard2 = () => {
                 <input
                   placeholder="Enter the Answer"
                   type="text"
+                  value={Answer}
                   name="text"
                   class="input"
+                  onChange={(e)=>setAnswer(e.target.value)}
                 ></input>
               </div>
               <div className="btn-div">
-                <button className="btn">
+                <button className="btn" onClick={()=>{handleSubmit(Answer)}}>
                   <span class="span-mother">
                     <span>S</span>
                     <span>u</span>
