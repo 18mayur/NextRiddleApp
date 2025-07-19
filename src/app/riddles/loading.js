@@ -1,9 +1,6 @@
-import React from 'react'
 
-const loading = () => {
+export default function page() {
   return (
-    <div>loading api</div>
+    <div className="text-2xl text-red-600 bold">loading...</div>
   )
 }
-
-export default loading
