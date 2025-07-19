@@ -20,8 +20,10 @@ const RiddleCard2 = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [riddle, setRiddle] = useState([null]);
   const [showAns, setShowAns] = useState(false);
+  const[nextRiddle,setNextRiddle]=useState(false);
   const [Answer,setAnswer]=useState("")
   const [result,setResult]=useState("");
+  
   useEffect(() => {
     if (isStart) {
       const fetchRiddle = async () => {
@@ -65,6 +67,11 @@ const RiddleCard2 = () => {
     ["These riddles won't solve themselves. Show us what you’ve got."],
     ["The deeper you think, the closer you get. Are you up for the challenge?"],
   ];
+  const handleNextRiddle=()=>{
+    setShowAns(true);
+    setNextRiddle(true);
+  }
+
   function StartQuotes(quotesArray) {
     let randomNo = Math.floor(Math.random() * quotesArray.length);
     return randomNo;
@@ -82,7 +89,7 @@ const RiddleCard2 = () => {
               }`}
             >
               {showAns ? 
-                <h1 className="text-[1.35rem] md:text-[2rem] text-center font2">
+                <h1 className="text-[1.35rem] md:text-[1rem] text-center font2">
                   {riddle?.answer}
                 </h1>
               : result ||
@@ -104,7 +111,13 @@ const RiddleCard2 = () => {
                 </p>
               </div>
             )}
-            <div className="flex justify-between pb-4">
+            {
+              nextRiddle?<button
+              type="button"
+              className="select-none rounded-lg font4 bg-blue-500 py-3 px-6 text-center font-sans text-[1rem] tracking-wide font-bold uppercase text-white shadow-md transition-all hover:shadow-lg"
+            >
+              nextRiddle
+            </button>:  <div className="flex justify-between pb-4">
               <div className="input-div flex gap-3 px-5">
               <div>
                 <input
@@ -140,7 +153,7 @@ const RiddleCard2 = () => {
               <div className="px-6 pt-0 flex justify-center">
                 <div className="relative group">
                   <button
-                    onClick={() => setShowAns(true)}
+                    onClick={handleNextRiddle}
                     type="button"
                     className="select-none rounded-[50%] bg-black p-[8px] text-center text-xs font-bold uppercase text-white shadow-md transition-all hover:shadow-lg"
                   >
@@ -152,6 +165,8 @@ const RiddleCard2 = () => {
                 </div>
               </div>
             </div>
+            }
+          
           </>
         ) : (
           <div className="p-5 flex flex-col gap-4 justify-center">
