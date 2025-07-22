@@ -2,10 +2,9 @@
 
 import { useEffect, useState } from "react";
 import Loader from "./Loader";
-import Loader2 from "./Loader2";
 import cheat from "../../public/Images/beat.png";
-
 import Image from "next/image";
+import Loader2 from "./Loader2";
 // async function fetchRiddleData() {
 //   let data = await fetch("https://api.api-ninjas.com/v1/riddles", {
 //     method: "GET",
@@ -20,10 +19,10 @@ const RiddleCard2 = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [riddle, setRiddle] = useState([null]);
   const [showAns, setShowAns] = useState(false);
-  const[nextRiddle,setNextRiddle]=useState(false);
-  const [Answer,setAnswer]=useState("")
-  const [result,setResult]=useState("");
-  
+  const [nextRiddle, setNextRiddle] = useState(false);
+  const [Answer, setAnswer] = useState("");
+  const [result, setResult] = useState("");
+
   useEffect(() => {
     if (isStart) {
       const fetchRiddle = async () => {
@@ -36,7 +35,7 @@ const RiddleCard2 = () => {
             },
           });
           const data = await res.json();
-          setRiddle(data[0]);
+          ; (data[0]);
         } catch (err) {
           console.error("Failed to fetch riddle:", err);
         } finally {
@@ -47,14 +46,14 @@ const RiddleCard2 = () => {
       fetchRiddle();
     }
   }, [isStart]);
-  console.log(Answer)
-  const handleSubmit =(Answer)=>{
+  console.log(Answer);
+  const handleSubmit = (Answer) => {
     if (Answer.trim().toLowerCase() === riddle.answer.trim().toLowerCase()) {
-    setResult("You are correct!");
-  } else {
-    setResult("Try again!");
-  }
-  }
+      setResult("You are correct!");
+    } else {
+      setResult("Try again!");
+    }
+  };
   let quotesArray = [
     ["Think you're clever? Let's find out."],
     ["Only the sharpest minds can solve what's ahead. Are you one of them?"],
@@ -67,10 +66,10 @@ const RiddleCard2 = () => {
     ["These riddles won't solve themselves. Show us what you’ve got."],
     ["The deeper you think, the closer you get. Are you up for the challenge?"],
   ];
-  const handleNextRiddle=()=>{
+  const handleNextRiddle = () => {
     setShowAns(true);
     setNextRiddle(true);
-  }
+  };
 
   function StartQuotes(quotesArray) {
     let randomNo = Math.floor(Math.random() * quotesArray.length);
@@ -88,13 +87,13 @@ const RiddleCard2 = () => {
                 showAns ? "bg-green-600" : "from-blue-500 to-blue-600"
               }`}
             >
-              {showAns ? 
+              {showAns ? (
                 <h1 className="text-[1.35rem] md:text-[1rem] text-center font2">
                   {riddle?.answer}
                 </h1>
-              : result ||
-               <h1 className="text-5xl">Riddles</h1>
-              }
+              ) : (
+                result || <h1 className="text-5xl">Riddles</h1>
+              )}
             </div>
             {isLoading ? (
               <div className="flex items-center justify-center mb-3  text-black text-lg font-semibold">
@@ -111,62 +110,68 @@ const RiddleCard2 = () => {
                 </p>
               </div>
             )}
-            {
-              nextRiddle?<button
-              type="button"
-              className="select-none rounded-lg font4 bg-blue-500 py-3 px-6 text-center font-sans text-[1rem] tracking-wide font-bold uppercase text-white shadow-md transition-all hover:shadow-lg"
-            >
-              nextRiddle
-            </button>:  <div className="flex justify-between pb-4">
-              <div className="input-div flex gap-3 px-5">
-              <div>
-                <input
-                  placeholder="Enter the Answer"
-                  type="text"
-                  value={Answer}
-                  name="text"
-                  class="input"
-                  onChange={(e)=>setAnswer(e.target.value)}
-                ></input>
-              </div>
-              <div className="btn-div">
-                <button className="btn" onClick={()=>{handleSubmit(Answer)}}>
-                  <span class="span-mother">
-                    <span>S</span>
-                    <span>u</span>
-                    <span>b</span>
-                    <span>m</span>
-                    <span>i</span>
-                    <span>t</span>
-                  </span>
-                  <span class="span-mother2">
-                    <span>S</span>
-                    <span>u</span>
-                    <span>b</span>
-                    <span>m</span>
-                    <span>i</span>
-                    <span>t</span>
-                  </span>
-                </button>
-              </div>
-              </div>
-              <div className="px-6 pt-0 flex justify-center">
-                <div className="relative group">
-                  <button
-                    onClick={handleNextRiddle}
-                    type="button"
-                    className="select-none rounded-[50%] bg-black p-[8px] text-center text-xs font-bold uppercase text-white shadow-md transition-all hover:shadow-lg"
-                  >
-                    <Image width={24} height={24} alt="img" src={cheat} />
-                  </button>
-                  <div className="absolute bottom-[120%] left-1/2 -translate-x-1/2 whitespace-nowrap rounded bg-gray-800 px-2 py-1 text-sm text-white opacity-0 group-hover:opacity-100 transition-opacity duration-200 z-10">
-                    Do Not Cheat 
+            {nextRiddle ? (
+              <button
+                type="button"
+                className="select-none rounded-lg font4 bg-blue-500 py-3 px-6 text-center font-sans text-[1rem] tracking-wide font-bold uppercase text-white shadow-md transition-all hover:shadow-lg"
+              >
+                nextRiddle
+              </button>
+            ) : (
+              <div className="flex justify-between pb-4">
+                <div className="input-div flex gap-3 px-5">
+                  <div>
+                    <input
+                      placeholder="Enter the Answer"
+                      type="text"
+                      value={Answer}
+                      name="text"
+                      class="input"
+                      onChange={(e) => setAnswer(e.target.value)}
+                    ></input>
+                  </div>
+                  <div className="btn-div">
+                    <button
+                      className="btn"
+                      onClick={() => {
+                        handleSubmit(Answer);
+                      }}
+                    >
+                      <span class="span-mother">
+                        <span>S</span>
+                        <span>u</span>
+                        <span>b</span>
+                        <span>m</span>
+                        <span>i</span>
+                        <span>t</span>
+                      </span>
+                      <span class="span-mother2">
+                        <span>S</span>
+                        <span>u</span>
+                        <span>b</span>
+                        <span>m</span>
+                        <span>i</span>
+                        <span>t</span>
+                      </span>
+                    </button>
+                  </div>
+                </div>
+                <div className="px-6 pt-0 flex justify-center">
+                  <div className="relative group">
+                    <button
+                      onClick={handleNextRiddle}
+                      type="button"
+                      className="select-none rounded-[50%] bg-black p-[8px] text-center text-xs font-bold uppercase text-white shadow-md transition-all hover:shadow-lg"
+                    >
+                      <Image width={24} height={24} alt="img" src={cheat} />
+                    </button>
+                    <div className="absolute bottom-[120%] left-1/2 -translate-x-1/2 whitespace-nowrap rounded bg-gray-800 px-2 py-1 text-sm text-white opacity-0 group-hover:opacity-100 transition-opacity duration-200 z-10">
+                      Do Not Cheat
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-            }
-          
+            )}
           </>
         ) : (
           <div className="p-5 flex flex-col gap-4 justify-center">
