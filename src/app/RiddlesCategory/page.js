@@ -82,7 +82,7 @@ const RiddlesCategory = () => {
                     </g>
                   </svg>
                   <span class="flex-1 ms-3 whitespace-nowrap">
-                    Math
+                    <Link href="/RiddlesCategory/math"> Math</Link>
                   </span>
                 </a>
               </li>
@@ -131,7 +131,7 @@ const RiddlesCategory = () => {
                     </g>
                   </svg>
                   <span class="flex-1 ms-3 whitespace-nowrap">
-                    Logic
+                    <Link href="/RiddlesCategory/logic"> Logic</Link>
                   </span>
                 </a>
               </li>
@@ -159,7 +159,7 @@ const RiddlesCategory = () => {
                     />
                   </svg>
                   <span class="flex-1 ms-3 whitespace-nowrap">
-                    Mystery
+                    <Link href="/RiddlesCategory/mystery"> Mystery</Link>
                   </span>
                 </a>
               </li>
@@ -208,7 +208,7 @@ const RiddlesCategory = () => {
                     </g>
                   </svg>
                   <span class="flex-1 ms-3 whitespace-nowrap">
-                    who‑am‑i
+                    <Link href="/RiddlesCategory/who‑am‑i"> who‑am‑i</Link>
                   </span>
                 </a>
               </li>
@@ -257,7 +257,7 @@ const RiddlesCategory = () => {
                     </g>
                   </svg>
                   <span class="flex-1 ms-3 whitespace-nowrap">
-                    Funny
+                    <Link href="/RiddlesCategory/funny">Funny</Link>
                   </span>
                 </a>
               </li>

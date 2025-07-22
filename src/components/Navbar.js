@@ -32,6 +32,7 @@ const Navbar = () => {
               
                   <Link href="/" aria-current="page" className="rounded-md px-3 py-2 text-[1.125rem] font-medium text-white">Home</Link>
                   <Link href="/riddles" className="rounded-md px-3 py-2 text-[1.125rem] font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Riddle</Link>
+                  <Link href="/RiddlesCategory" className="rounded-md px-3 py-2 text-[1.125rem] font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Riddle Category</Link>
                 </div>
               </div>
             </div>
