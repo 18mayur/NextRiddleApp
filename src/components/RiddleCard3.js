@@ -47,11 +47,17 @@ useEffect(() => {
   }, [isStart]);
   console.log(Answer);
   const handleSubmit = (Answer) => {
-    if (Answer.trim().toLowerCase() === test.answer.trim().toLowerCase()) {
+    // if (Answer.trim().toLowerCase() === test.answer.trim().toLowerCase()) {
+    //   setResult(`You are correct : answer is ${test.answer}` );
+    // } else {
+    //   setResult("Try again!");
+    // }
+    let str=test.answer;
+    if(str.includes(Answer)){
       setResult(`You are correct : answer is ${test.answer}` );
-    } else {
+    }else {
       setResult("Try again!");
-    }
+    } 
   };
   let quotesArray = [
     ["Think you're clever? Let's find out."],
