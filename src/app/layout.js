@@ -25,10 +25,10 @@ export default function RootLayout({ children }) {
           </video>
 
           {/* Overlay content */}
-          <div className="relative z-10 flex flex-col items-center justify-center h-full text-white text-center">
+          <div className="flex justify-center items-center h-full">
             
             {children}
-            <p className="mt-4">Challenge your brain!</p>
+           
           </div>
         </div>
         {/* <div className="bgimage ">

@@ -1,6 +1,30 @@
-.bg-svg{
+/* .bg-svg{
     background-image: url(../../../public/Images/endless-constellation.svg);
     background-repeat: no-repeat;
     background-size: cover;
 
-}
+} */
+ .bg-style{
+    background-color: rgba(0, 0, 0, 0.1);
+	-webkit-backdrop-filter: blur(15px);
+	backdrop-filter: blur(12px);
+    box-shadow: 0 8px 8px rgba(0, 0, 0, 0.4);
+	border: 1.5px solid rgba(255, 255, 255, 0.06);
+	border-radius: 1.4rem;
+ }
+ .science-bg{
+    display: flex;
+    color: azure;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+    background-color: rgba(0, 0, 0, 0.1);
+	backdrop-filter: blur(12px);
+    border-radius: 1rem;
+    width: 100%;
+    height: 120px;
+    background-image: url(../../../public/Images/science.webp);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: top;
+ }

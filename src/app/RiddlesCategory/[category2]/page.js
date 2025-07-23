@@ -11,7 +11,7 @@ const page = async({params}) => {
     // let riddleData=await fetchRiddleData(category2)
   return (
     <>
-    <div className="container flex justify-center mt-[3rem]">
+    <div className="container flex  mt-[3rem]">
       <RiddleCard3 category={category2}/>
     </div>
     </>
