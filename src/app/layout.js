@@ -1,6 +1,5 @@
-
 import "./globals.css";
-import "./style.css"
+import "./style.css";
 import Navbar from "@/components/Navbar";
 
 export const metadata = {
@@ -12,10 +11,30 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body>
-        <div className="bgimage ">
-        <Navbar/>
-        {children}
+        {/* <Navbar /> */}
+        <div className="relative w-full h-screen overflow-hidden">
+          <video
+            autoPlay
+            muted
+            loop
+            playsInline
+            className="absolute top-0 left-0 w-full h-full object-cover z-[-1]"
+          >
+            <source src="/videos/riddleBG-2.mp4" type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+
+          {/* Overlay content */}
+          <div className="relative z-10 flex flex-col items-center justify-center h-full text-white text-center">
+            
+            {children}
+            <p className="mt-4">Challenge your brain!</p>
+          </div>
         </div>
+        {/* <div className="bgimage ">
+          
+          
+        </div> */}
       </body>
     </html>
   );

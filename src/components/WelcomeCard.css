@@ -1,0 +1,78 @@
+/* *,
+*:before,
+*:after {
+	padding: 0;
+	margin: 0;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+}
+*:not(i) {
+	font-family: "Roboto Mono", monospace;
+	color: #ffffff;
+}
+body {
+	height: 100vh;
+	background-color: #02070d;
+} */
+.box {
+	position: relative;
+	-webkit-transform: translate(-50%, -50%);
+	-ms-transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%);
+	top: 50%;
+	left: 50%;
+}
+.container {
+	width: 320px;
+}
+.clock {
+	height: 100%;
+	width: 100%;
+	background-color: rgba(0, 0, 0, 0.1);
+	-webkit-backdrop-filter: blur(15px);
+	backdrop-filter: blur(12px);
+	padding: 50px 50px;
+	-webkit-box-shadow: 0 25px 23px rgba(0, 0, 0, 0.15);
+	box-shadow: 0 8px 8px rgba(0, 0, 0, 0.4);
+	border: 1.5px solid rgba(255, 255, 255, 0.06);
+	border-radius: 12px;
+}
+#day {
+	position: relative;
+	font-size: 16px;
+	letter-spacing: 2px;
+	text-transform: uppercase;
+	color: #c5c5c5;
+	text-align: center;
+}
+input {
+    background: transparent;
+    width: 200px;
+    padding: 1em;
+    margin-bottom: 2em;
+    border: none;
+    border-left: 1px solid white;
+    border-top: 1px solid white;
+    border-radius: 5000px;
+    backdrop-filter: blur(5px);
+    box-shadow: 4px 4px 60px rgba(0,0,0,0.2);
+    color: #fff;
+    font-family: Montserrat, sans-serif;
+    font-weight: 500;
+    transition: all 0.2s ease-in-out;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+    
+    &:hover {
+      background: rgba(255,255,255,0.1);
+      box-shadow: 4px 4px 60px 8px rgba(0,0,0,0.2);
+    }
+    
+    &[type="email"],
+    &[type="password"] {
+      
+      &:focus {
+        background: rgba(255,255,255,0.1);
+        box-shadow: 4px 4px 60px 8px rgba(0,0,0,0.2);
+      }
+    }
+}

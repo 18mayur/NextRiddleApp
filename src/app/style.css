@@ -45,6 +45,7 @@
   margin-bottom: 6px;
   animation: motion 1s linear infinite;
 }
+
 /* truck suspension animation*/
 @keyframes motion {
   0% {
