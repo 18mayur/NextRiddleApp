@@ -4,6 +4,7 @@
     background-size: cover;
 
 } */
+ @import url('https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap');
  .bg-style{
     background-color: rgba(0, 0, 0, 0.1);
 	-webkit-backdrop-filter: blur(15px);
@@ -13,18 +14,62 @@
 	border-radius: 1.4rem;
  }
  .science-bg{
-    display: flex;
     color: azure;
-    justify-content: center;
-    align-items: center;
-    font-size: 2rem;
-    background-color: rgba(0, 0, 0, 0.1);
-	backdrop-filter: blur(12px);
+    background-image: url(../../../public/Images/science.webp);
+    box-shadow: 6px 6px 8px 2px rgba(0, 0, 0, .4);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center -30px;
+ }
+ .math-bg{
+    color: azure;
+    background-image: url(../../../public/Images/math.jpg);
+    box-shadow: 6px 6px 8px 2px rgba(0, 0, 0, .4);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center -46px ;
+ }
+ .logic-bg{
+    color: azure;
+    background-image: url(../../../public/Images/logic.svg);
+    box-shadow: 6px 6px 8px 2px rgba(0, 0, 0, .4);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center -80px;
+ }
+ .mystery-bg{
+    color: azure;
+    background-image: url(../../../public/Images/mystery.jpg);
+    box-shadow: 6px 6px 8px 2px rgba(0, 0, 0, .4);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center -160px ;
+ }
+ .Who-bg{
+    color: azure;
+    background-image: url(../../../public/Images/who-am-i.jpg);
+    box-shadow: 6px 6px 8px 2px rgba(0, 0, 0, .4);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center -160px ;
+ }
+ .funny-bg{
+    color: azure;
+    background-image: url(../../../public/Images/funny.webp);
+    box-shadow: 6px 6px 8px 2px rgba(0, 0, 0, .4);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center -100px ;
+ }
+ .back-drop{
+    font-family: "Luckiest Guy", cursive;
+    font-size: 2.25rem;
+    font-weight: 400;   
+    letter-spacing: 0.6px;
+    background-color: rgba(0, 0, 0, 0.36);
+	backdrop-filter: opacity(0.5);;
     border-radius: 1rem;
     width: 100%;
     height: 120px;
-    background-image: url(../../../public/Images/science.webp);
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: top;
+    
  }

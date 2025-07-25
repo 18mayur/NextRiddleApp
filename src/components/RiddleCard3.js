@@ -26,7 +26,6 @@ const[test,setTest]=useState("");
   // const [nextRiddle,setNextRiddle]=useState()
 useEffect(() => {
     console.log(category)
-    
     if (isStart) {
       const fetchRiddle = async (category) => {
         try {

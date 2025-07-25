@@ -1,0 +1,14 @@
+.welcome{
+    
+    color: #fff;
+    padding: 1.5rem 1.35rem;
+    width: 100%;
+    background-color: rgba(196, 252, 239, 0.2);
+	-webkit-backdrop-filter: blur(15px);
+	backdrop-filter: blur(12px);
+    border-top-left-radius: 1.4rem !important;
+    border-top-right-radius: 1.4rem !important;
+}
+.input-div{
+    padding:1.25rem 1.5rem;
+}

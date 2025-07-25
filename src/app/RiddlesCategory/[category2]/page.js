@@ -5,14 +5,16 @@
 //     data=await data.json();
 //     return data;
 // }
+import NewRiddleCard from "@/components/NewRiddleCard";
 import RiddleCard3 from "@/components/RiddleCard3";
 const page = async({params}) => {
     let {category2}=params;
     // let riddleData=await fetchRiddleData(category2)
   return (
     <>
-    <div className="container flex  mt-[3rem]">
-      <RiddleCard3 category={category2}/>
+    <div className=" flex  ">
+      <NewRiddleCard category={category2}/>
+      {/* <RiddleCard3 category={category2}/> */}
     </div>
     </>
     // <div>
