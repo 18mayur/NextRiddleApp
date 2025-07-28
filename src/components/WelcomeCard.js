@@ -16,12 +16,12 @@ const WelcomeCard = () => {
                 Enter your Name to start the game!
               </label>
               <input
-                placeholder="Enter the Answer"
+                placeholder="Enter Your Name !"
                 type="text"
                 id="name-input"
                 // value={Answer}
                 name="text"
-                class="input"
+                className="input "
                 // onChange={(e) => setAnswer(e.target.value)}
               ></input>
               <Link href="/RiddlesCategory">
