@@ -9,6 +9,7 @@ import check from "../../public/Images/check.svg";
 import hint from "../../public/Images/hints.png";
 import hint2 from "../../public/Images/hints2.png";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 
 const NewRiddleCard = ({ category }) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -17,31 +18,72 @@ const NewRiddleCard = ({ category }) => {
   const [gameOver, setGameOver] = useState(false);
   const [hintCount, setHintCount] = useState(0);
   const [hint, setHint] = useState("");
-  const [showAns ,setShowAns]=useState(false);
+  const [Answer, setAnswer] = useState("");
+  const [showAns, setShowAns] = useState(false);
+  const [nextRiddlebtn, setNextRiddleBtn] = useState(false);
+
+  const pathname = usePathname();
   useEffect(() => {
     console.log(category);
-    const fetchRiddle = async (category) => {
-      try {
+    if (
+      pathname === "/RiddlesCategory/mystery" ||
+      pathname === "/RiddlesCategory/funny"
+    ) {
+      const fetchRiddle = async (category) => {
+        try {
+          setIsLoading(true);
+          const res = await fetch(
+            `https://riddles-api-eight.vercel.app/${category}/10`
+          );
+          const data = await res.json();
+          setRiddles(data.riddlesArray);
+          // console.log(data.riddlesArray[0]);
+        } catch (err) {
+          console.error("Failed to fetch riddle:", err);
+        } finally {
+          setIsLoading(false);
+        }
+      };
+      fetchRiddle(category);
+    } else {
+      const fetchRiddle = async (category) => {
         setIsLoading(true);
-        const res = await fetch(
-          `https://riddles-api-eight.vercel.app/${category}/10`
-        );
-        const data = await res.json();
-        setRiddles(data.riddlesArray);
-        // console.log(data.riddlesArray[0]);
-      } catch (err) {
-        console.error("Failed to fetch riddle:", err);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-    fetchRiddle(category);
+        let collected = [];
+        try {
+          while (collected.length < 10) {
+            const res = await fetch(
+              `https://riddles-api-eight.vercel.app/${category}/10`
+            );
+            const data = await res.json();
+            const filtered = data.riddlesArray.filter((riddle) => {
+              const wordCount = riddle.answer.trim().split(/\s+/).length;
+              return wordCount >= 2 && wordCount <= 3;
+            });
+            for (const r of filtered) {
+              if (
+                collected.length < 10 &&
+                !collected.find((item) => item.riddle === r.riddle)
+              ) {
+                collected.push(r);
+              }
+            }
+          }
+          setRiddles(collected);
+        } catch (err) {
+          console.error("Failed to fetch riddles:", err);
+        } finally {
+          setIsLoading(false);
+        }
+      };
+      fetchRiddle(category);
+    }
   }, [category]);
   // console.log(riddles);
   // console.log(riddles[counter].riddle);
   const handleNextRiddle = () => {
     if (counter < riddles.length - 1) {
       // setCounter(counter + 1);
+      setNextRiddleBtn(false)
       setIsLoading(true);
       setTimeout(() => {
         setCounter((prev) => prev + 1);
@@ -54,10 +96,24 @@ const NewRiddleCard = ({ category }) => {
       setGameOver(true);
     }
   };
-
+  const handlecheck = (Answer) => {
+    // if (Answer.trim().toLowerCase() === test.answer.trim().toLowerCase()) {
+    //   setResult(`You are correct : answer is ${test.answer}` );
+    // } else {
+    //   setResult("Try again!");
+    // }
+    let str = riddles?.[counter]?.answer.trim().toLowerCase();
+ ;
+    if (str.includes(Answer)) {
+      setResult(`You are correct : answer is ${str}`);
+      setNextRiddleBtn(true);
+    } else {
+      setResult("Try again!");
+    }
+  };
   const generateHint = (answer, hintLevel) => {
     if (hintLevel >= 3) return answer;
-    const revealCount = hintLevel === 1 ? 2 : 4;
+    const revealCount = hintLevel === 2 ? 3 : 4;
     const indices = [];
     while (indices.length < revealCount) {
       const idx = Math.floor(Math.random() * answer.length);
@@ -69,7 +125,7 @@ const NewRiddleCard = ({ category }) => {
       .split("")
       .map((char, i) => {
         if (i === 0 || indices.includes(i)) return char;
-        return char === " " ? " " : "_";
+        return char === " " ? " " : "_ ";
       })
       .join("");
   };
@@ -82,29 +138,36 @@ const NewRiddleCard = ({ category }) => {
     setHint(newHint);
   };
 
-  const handleGiveup =()=>{
+  const handleGiveup = () => {
     setShowAns(true);
-  }
+    setNextRiddleBtn(true);
+  };
   return (
     <>
       <div className="box !absolute w-full ">
         <div className="container2 flex justify-center items-center !w-full">
           <div className="clock flex flex-col items-center ">
             <div className="Que-div flex justify-between items-center ">
-              {showAns? <h3 className="!text-[2rem] font-semibold">{riddles?.[counter]?.answer}</h3>:<h3 className="!text-[2rem] font-semibold">Quetion</h3>}
+              {showAns ? (
+                <h3 className="!text-[2rem] font-semibold">
+                  {riddles?.[counter]?.answer}
+                </h3>
+              ) : (
+                <h3 className="!text-[2rem] font-semibold">Quetion</h3>
+              )}
               <span className="pr-3 text-xl">{counter + 1}/10</span>
             </div>
             {gameOver ? (
               <div className="text-3xl font-bold text-red-500 mt-4">
-                🎉 Game Over!
+                Game Over!
               </div>
             ) : isLoading ? (
-              <div className="flex items-center justify-center mb-3 text-black text-lg font-semibold">
+              <div className="flex items-center justify-center my-4 text-black text-lg font-semibold">
                 <Loader2 />
               </div>
             ) : (
-              <div className="px-6 pt-5 text-left w-full">
-                <p className="text-[1.125rem] text-amber-100">
+              <div className="px-6 pt-5 text-left w-full back-drop2">
+                <p className="text-[1.125rem] text-amber-100 ">
                   {riddles?.[counter]?.riddle || "No riddle available"}
                 </p>
                 {/* {showAnswer && (
@@ -119,25 +182,47 @@ const NewRiddleCard = ({ category }) => {
               <input
                 placeholder="Enter the Answer"
                 type="text"
+                value={Answer}
                 name="text"
+                onChange={(e) => setAnswer(e.target.value)}
                 className="input !mb-0"
               />
               <div className="flex justify-center w-full gap-4 items-center mt-4">
-                <button onClick={handleGiveup} className="bg-red-500 text-white px-4 py-2 rounded  !flex gap-1 items-center ">
-                  <Image src={cross} width={24} height={24} />{" "}
-                  <span>Give up</span>
-                </button>
-                <button className="bg-red-500 text-white px-4 py-2 rounded  !flex gap-1 items-center ">
-                  <Image src={check} width={28} height={28} />{" "}
-                  <span>check</span>
-                </button>
-
-                <button
-                  onClick={handleNextRiddle}
-                  className="bg-blue-600 text-white px-4 py-2 rounded"
-                >
-                  Next
-                </button>
+                {nextRiddlebtn ? (
+                  <>
+                    <button
+                      onClick={handleGiveup}
+                      className="btn2 !bg-[#ff0033] text-white !px-[1.4rem] rounded  !flex gap-1 items-center "
+                    >
+                      <Image src={cross} width={24} height={24} />{" "}
+                      <span>Give up</span>
+                    </button>
+                    <button
+                      onClick={handleNextRiddle}
+                      className="btn2 !bg-[#17d1c5] text-white px-4 py-2 rounded"
+                      disabled={counter >= riddles.length - 1}
+                    >
+                      Next
+                    </button>
+                  </>
+                ) : (
+                  <>
+                    <button
+                      onClick={handleGiveup}
+                      className="btn2 !bg-[#ff0033] text-white px-4 py-2 rounded  !flex gap-1 items-center "
+                    >
+                      <Image src={cross} width={22} height={22} />{" "}
+                      <span>Give up</span>
+                    </button>
+                    <button
+                      onClick={handlecheck}
+                      className="btn2 !bg-[#26cc5d] !shadow-[#51d17c] text-white px-4 py-2 rounded  !flex gap-1 items-center "
+                    >
+                      <Image src={check} width={26} height={26} />{" "}
+                      <span>check</span>
+                    </button>
+                  </>
+                )}
               </div>
               <div className="hint flex gap-1 mt-4 mb-2.5 items-center text-xl text-amber-50 cursor-pointer ">
                 <Image src={hint2} width={30} height={30} />

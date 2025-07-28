@@ -49,7 +49,7 @@ const RiddlesCategory = () => {
                 </Link>
               </li>
               <li className="funny-bg flex justify-center items-center rounded-2xl w-full h-[120px]">
-                 <Link href="/RiddlesCategory/who-am-i" className="back-drop flex justify-center items-center">
+                 <Link href="/RiddlesCategory/funny" className="back-drop flex justify-center items-center">
                   <span class=" whitespace-nowrap">
                    Funny
                   </span>

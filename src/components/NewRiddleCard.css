@@ -2,12 +2,48 @@
     color: #fff;
     padding: 1.5rem 1.35rem;
     width: 100%;
-    background-color: rgba(196, 252, 239, 0.2);
+    background-color: rgba(196, 252, 239, 0.13);
 	-webkit-backdrop-filter: blur(15px);
-	backdrop-filter: blur(12px);
+	backdrop-filter: opacity(0.5);
     border-top-left-radius: 1.4rem !important;
     border-top-right-radius: 1.4rem !important;
 }
 .input-div{
     padding:1.25rem 1.5rem;
+    background-color: rgba(0, 0, 0, 0.13);
+	backdrop-filter: opacity(0.5);
+}
+button:disabled{
+    cursor: not-allowed;
+}
+
+.btn2 {
+  font-size: 18px;
+  display: inline-block;
+  outline: 0;
+  border: 0;
+  cursor: pointer;
+  will-change: box-shadow,transform;
+  /* background: radial-gradient( 100% 100% at 100% 0%, #89E5FF 0%, #5468FF 100% ); */
+  box-shadow: 0px 0.01em 0.01em rgb(45 35 66 / 40%), 0px 0.3em 0.7em -0.01em rgb(45 35 66 / 30%), inset 0px -0.01em 0px rgb(58 65 111 / 50%);
+  padding: 0.5rem 1rem;
+  border-radius: 0.875rem;
+  color: #fff;
+  /* height: 2.4em; */
+  text-shadow: 0 1px 0 rgb(0 0 0 / 40%);
+  transition: box-shadow 0.15s ease, transform 0.15s ease;
+}
+
+.btn2:hover {
+  box-shadow: 0px 0.1em 0.2em rgb(45 35 66 / 40%), 0px 0.4em 0.7em -0.1em rgb(45 35 66 / 30%), inset 0px -0.1em 0px #f72d56;
+  transform: translateY(-0.1em);
+}
+
+.btn2:active {
+  box-shadow: inset 0px 0.1em 0.6em #f72d56;
+  transform: translateY(0em);
+}
+.back-drop2{
+    background-color: rgba(0, 0, 0, 0.13);
+	backdrop-filter: opacity(0.5);;
 }
