@@ -6,8 +6,8 @@ import { useState, useEffect } from "react";
 import Loader2 from "./Loader2";
 import cross from "../../public/Images/cross.svg";
 import check from "../../public/Images/check.svg";
-import hint from "../../public/Images/hints.png";
 import hint2 from "../../public/Images/hints2.png";
+import congrats from "../../public/Images/firework.png";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 
@@ -20,9 +20,15 @@ const NewRiddleCard = ({ category }) => {
   const [hint, setHint] = useState("");
   const [Answer, setAnswer] = useState("");
   const [showAns, setShowAns] = useState(false);
+  const [result, setResult] = useState(false);
   const [nextRiddlebtn, setNextRiddleBtn] = useState(false);
+  const [score,setScore]=useState(0);
 
   const pathname = usePathname();
+
+  const hiddenRoutes =['/RiddlesCategory/funny','/RiddlesCategory/mystery'];
+
+  const HintBtnPath = hiddenRoutes.includes(pathname)
   useEffect(() => {
     console.log(category);
     if (
@@ -83,7 +89,7 @@ const NewRiddleCard = ({ category }) => {
   const handleNextRiddle = () => {
     if (counter < riddles.length - 1) {
       // setCounter(counter + 1);
-      setNextRiddleBtn(false)
+      setNextRiddleBtn(false);
       setIsLoading(true);
       setTimeout(() => {
         setCounter((prev) => prev + 1);
@@ -96,20 +102,47 @@ const NewRiddleCard = ({ category }) => {
       setGameOver(true);
     }
   };
+  console.log(Answer);
+  function normalizeTextAnswer(text) {
+    return text
+      .toLowerCase()
+      .replace(/^(a |an |the |my |your )/, "") // remove common prefixes
+      .replace(/^the letter /, "") // special case: 'the letter x'
+      .replace(/[^a-z0-9]/g, "") // remove punctuation
+      .trim();
+  }
+  function extractNumber(text) {
+    const match = text.match(/\d+/);
+    return match ? parseInt(match[0]) : null;
+  }
+
   const handlecheck = (Answer) => {
-    // if (Answer.trim().toLowerCase() === test.answer.trim().toLowerCase()) {
-    //   setResult(`You are correct : answer is ${test.answer}` );
-    // } else {
-    //   setResult("Try again!");
-    // }
-    let str = riddles?.[counter]?.answer.trim().toLowerCase();
- ;
-    if (str.includes(Answer)) {
-      setResult(`You are correct : answer is ${str}`);
+
+    let userInput = Answer;
+    let correctAnswer = riddles?.[counter]?.answer;
+    console.log(userInput);
+    console.log(correctAnswer);
+    if (!userInput || !correctAnswer) return true;
+
+    const ApiAnswer = normalizeTextAnswer(correctAnswer);
+    const UserInputAnswer = normalizeTextAnswer(userInput);
+    if (UserInputAnswer === ApiAnswer || UserInputAnswer.includes(ApiAnswer)) {
+      setShowAns(true);
+      setAnswer("")
       setNextRiddleBtn(true);
-    } else {
-      setResult("Try again!");
+      setScore(score+50);
+      return ;
     }
+    const correctNum = extractNumber(correctAnswer);
+    const userNum = extractNumber(userInput);
+    if (correctNum !== null && userNum === correctNum) {
+      setShowAns(true);
+      setAnswer("")
+      setNextRiddleBtn(true);
+      setScore(score+50);
+      return ;
+    }
+    return setShowAns(false) && setResult(true);
   };
   const generateHint = (answer, hintLevel) => {
     if (hintLevel >= 3) return answer;
@@ -141,17 +174,30 @@ const NewRiddleCard = ({ category }) => {
   const handleGiveup = () => {
     setShowAns(true);
     setNextRiddleBtn(true);
+    if(score<=0){
+      setScore(score)
+    }else{
+      setScore(score-20);
+    }
   };
+  console.log(score)
   return (
     <>
       <div className="box !absolute w-full ">
-        <div className="container2 flex justify-center items-center !w-full">
+        <div className="container2 flex flex-col justify-center items-center !w-full">
+        <p className="text-5xl mb-3 text-cyan-50 font-bold">Score :{score}</p>
           <div className="clock flex flex-col items-center ">
             <div className="Que-div flex justify-between items-center ">
               {showAns ? (
-                <h3 className="!text-[2rem] font-semibold">
-                  {riddles?.[counter]?.answer}
-                </h3>
+                <div className=" flex flex-col w-full">
+                <div className="flex gap-2 mb-2">
+                  <Image src={congrats} width={24} height={24} alt="congrats"/>
+                  <span className=" !text-[1.5rem] font-semibold"> Correct Answer!</span>
+                </div>
+                  <span className="ms-3 !text-[1.3rem] font-semibold"> {riddles?.[counter]?.answer}</span>
+                  </div>
+              ) : result ? (
+                <h3 className="!text-[2rem] font-semibold">Try again</h3>
               ) : (
                 <h3 className="!text-[2rem] font-semibold">Quetion</h3>
               )}
@@ -162,11 +208,11 @@ const NewRiddleCard = ({ category }) => {
                 Game Over!
               </div>
             ) : isLoading ? (
-              <div className="flex items-center justify-center my-4 text-black text-lg font-semibold">
+              <div className="flex items-center justify-center !my-4 p-4  text-black text-lg font-semibold">
                 <Loader2 />
               </div>
             ) : (
-              <div className="px-6 pt-5 text-left w-full back-drop2">
+              <div className="px-6 pt-5  text-left w-full back-drop2">
                 <p className="text-[1.125rem] text-amber-100 ">
                   {riddles?.[counter]?.riddle || "No riddle available"}
                 </p>
@@ -215,7 +261,7 @@ const NewRiddleCard = ({ category }) => {
                       <span>Give up</span>
                     </button>
                     <button
-                      onClick={handlecheck}
+                      onClick={() => handlecheck(Answer)}
                       className="btn2 !bg-[#26cc5d] !shadow-[#51d17c] text-white px-4 py-2 rounded  !flex gap-1 items-center "
                     >
                       <Image src={check} width={26} height={26} />{" "}
@@ -224,7 +270,8 @@ const NewRiddleCard = ({ category }) => {
                   </>
                 )}
               </div>
-              <div className="hint flex gap-1 mt-4 mb-2.5 items-center text-xl text-amber-50 cursor-pointer ">
+              {
+                !HintBtnPath && <div className="hint flex gap-1 mt-4 mb-2.5 items-center text-xl text-amber-50 cursor-pointer ">
                 <Image src={hint2} width={30} height={30} />
                 <span onClick={handleHint} disabled={hintCount >= 3}>
                   {" "}
@@ -232,6 +279,8 @@ const NewRiddleCard = ({ category }) => {
                 </span>
                 {hint && <p className="text-lime-400 text-xl ml-2 ">{hint}</p>}
               </div>
+              }
+             
             </div>
           </div>
         </div>
